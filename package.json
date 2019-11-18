@@ -1,0 +1,22 @@
+{
+  "name": "social",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nandanaru2/social.git"
+  },
+  "keywords": [
+    "social"
+  ],
+  "author": "nandan'",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nandanaru2/social/issues"
+  },
+  "homepage": "https://github.com/nandanaru2/social#readme"
+}

@@ -4,7 +4,7 @@ const _bodyparser = require("body-parser");
 
 // create express app
 const app = _express();
-const social = require('./routes/socialroutes')
+const git = require('./routes/git')
 
 
 
@@ -83,7 +83,7 @@ app.disable('etag');
 
 
 
-app.use('/api', social);
+app.use('/api', git);
 
 
 

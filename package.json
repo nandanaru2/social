@@ -20,7 +20,9 @@
   },
   "homepage": "https://github.com/nandanaru2/social#readme",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "superagent": "^5.1.0"
   }
 }

@@ -8,7 +8,7 @@ module.exports = {
                 return ('http://localhost:5050/api/test')
             },
             Linkedin: function () {
-                return ('http://localhost:5050/api/test')
+                return (`${process.env.LINKEDIN_URL}?state=true&response_type=code&redirect_uri=${process.env.LINKEDIN_CALLBACK}&scope=${process.env.LINKEDIN_SCOPE}&client_id=${process.env.LINKEDIN_CLIENTID}`)
             }
         }
         return redirect[social]()

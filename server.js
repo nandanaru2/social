@@ -83,6 +83,8 @@ app.disable('etag');
 
 require('./routes/git')(app);
 require('./routes/linkedin')(app);
+require('./routes/google')(app);
+
 
 
 

@@ -1,10 +1,8 @@
 const _express = require("express");
 const _bodyparser = require("body-parser");
-
-
+const dotenv = require('dotenv').config();
 // create express app
 const app = _express();
-const git = require('./routes/git')
 
 
 
@@ -83,7 +81,10 @@ app.disable('etag');
 
 
 
-app.use('/api', git);
+require('./routes/git')(app);
+require('./routes/linkedin')(app);
+require('./routes/google')(app);
+
 
 
 

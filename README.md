@@ -1,34 +1,84 @@
-# social media login for git and linkedin using nodejs without passportjs package 
+import React, { useState } from "react";
+import { Table, Column, HeaderCell, Cell, Nav, Button } from "rsuite";
 
+// Sample data for tables
+const data1 = [{ id: "DRA-1125" }, { id: "DRA-1126" }];
+const data2 = [{ id: "DRA-2125" }, { id: "DRA-2126" }];
+const data3 = [{ id: "DRA-3125" }, { id: "DRA-3126" }];
 
-.env file is needed just create an client id and client secret from git and linked in 
+function App() {
+  const [activeTab, setActiveTab] = useState("tab1");
+  const [dynamicTabs, setDynamicTabs] = useState([]); // To manage dynamic tabs
 
-Import your client id and secret for git and linked in
+  // Add a new dynamic tab
+  const addDynamicTab = (id) => {
+    if (dynamicTabs.length < 2 && !dynamicTabs.some((tab) => tab.id === id)) {
+      setDynamicTabs([...dynamicTabs, { id }]);
+      setActiveTab(id); // Switch to the new tab
+    }
+  };
 
-GITHUB_URL=https://github.com/login/oauth/authorize
-GOOGLE_URL=https://accounts.google.com/o/oauth2/auth
-LINKEDIN_URL=https://linkedin.com/oauth/v2/authorization
-GITHUB_CALLBACK_URL=http://localhost:5050/api/auth/github/callback
+  // Remove a dynamic tab
+  const closeDynamicTab = (id) => {
+    setDynamicTabs(dynamicTabs.filter((tab) => tab.id !== id));
+    setActiveTab("tab1"); // Switch back to the default tab
+  };
 
+  // Table component to render IDs and handle clicks
+  const CustomTable = ({ data }) => (
+    <Table height={200} data={data} bordered>
+      <Column width={200} align="center" fixed>
+        <HeaderCell>ID</HeaderCell>
+        <Cell>
+          {(rowData) => (
+            <Button
+              appearance="link"
+              onClick={() => addDynamicTab(rowData.id)}
+            >
+              {rowData.id}
+            </Button>
+          )}
+        </Cell>
+      </Column>
+    </Table>
+  );
 
+  return (
+    <div>
+      {/* Tab Navigation */}
+      <Nav activeKey={activeTab} onSelect={setActiveTab} appearance="tabs">
+        <Nav.Item eventKey="tab1">Table 1</Nav.Item>
+        <Nav.Item eventKey="tab2">Table 2</Nav.Item>
+        <Nav.Item eventKey="tab3">Table 3</Nav.Item>
+        {dynamicTabs.map((tab) => (
+          <Nav.Item eventKey={tab.id} key={tab.id}>
+            {tab.id}{" "}
+            <Button
+              size="xs"
+              appearance="subtle"
+              onClick={() => closeDynamicTab(tab.id)}
+            >
+              ✕
+            </Button>
+          </Nav.Item>
+        ))}
+      </Nav>
 
-GITHUB_CLIENTID=
-GITHUB_SECRET=
-GOOGLE_STATE= %2Fprofile
-GOOGLE_RESPONSE_TYPE=code
-GOOGLE_SCOPE = https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile
-GOOGLE_CALL_BACK =	http%3A%2F%2Flocalhost%3A5050%2Fauth%2Fgoogle%2Fcallback
-GOOGLE_CLIENTID = 
-GOOGLE_APPROVAL_PROMPT = force
-GOOGLE_SECRET= 
-GOOGLE_REDIRECTION_URL= http%3A%2F%2Flocalhost%3A5050%2Fauth%2Fgoogle%2Fcallback
-GOOGLE_APPROVAL= !ChRZaG5hdDdLU1hGV3ZTZU5Rc3JCaRIfb3p3THRQOXd4cFlUOEhuU1JuY2dubXBlUzBVSnpoWQ%E2%88%99AJDr988AAAAAXWnqKZT2-Xqtub615QOKEesdCYyJHqgF
-GOOGLE_OAUTHGDPR=1&xsrfsig=ChkAeAh8T0Ntnszwqu5h5KqtXxzN9zroQl31Eg5hcHByb3ZhbF9zdGF0ZRILZGVzdGluYXRpb24SBXNvYWN1Eg9vYXV0aHJpc2t5c2NvcGU
-GOOGLE_FLOWNAME=GeneralOAuthFlow
-LINKEDIN_CLIENTID=
-LINKEDIN_SECRET=
-LINKEDIN_CALLBACK=http%3A%2F%2Flocalhost%3A5050%2Fauth%2Flinkedin%2Fcallback
-LINKEDIN_SCOPE=r_liteprofile r_emailaddress
-LINKEDIN_CALLBACK_URL=http://localhost:5050/auth/linkedin/callback
-LINKEDIN_EMAIL_HANDEL=.handle~
-GOOGLE_API_KEY= AIzaSyCFRyUdLtvCo8NGJ6-dF27UcrcUeh9Q4g4
+      {/* Tab Content */}
+      {activeTab === "tab1" && <CustomTable data={data1} />}
+      {activeTab === "tab2" && <CustomTable data={data2} />}
+      {activeTab === "tab3" && <CustomTable data={data3} />}
+      {dynamicTabs.map(
+        (tab) =>
+          activeTab === tab.id && (
+            <div key={tab.id}>
+              <h4>Details for {tab.id}</h4>
+              <p>Display detailed information here...</p>
+            </div>
+          )
+      )}
+    </div>
+  );
+}
+
+export default App
